@@ -1,4 +1,5 @@
 const bookmarkImageURL =  chrome.runtime.getURL("assets/bookmark.png");
+const AZ_PROBLEM_KEY = "AZ_PROBLEM_KEY";
 
 function addBookmarkButton(){
     const bookmarkButton = document.createElement("img");
@@ -25,6 +26,49 @@ function addBookmarkButton(){
     const problemDesc = document.getElementsByClassName('coding_runBtn__JDrPy')[0];
     problemDesc.insertAdjacentElement("beforebegin", bookmarkButton);
 
-    bookmarkButton.addEventListener("click", () => alert(`Problem Bookmarked!`));
+    bookmarkButton.addEventListener("click", addNewBookMarkHandler);
 }
+
+async function addNewBookMarkHandler() {
+    const currentBookmarks = await getCurrentBookMarks();
+
+    const azProblemUrl = window.location.href;
+    const uniqueID = extractUniqueID(azProblemUrl);
+    const problemName = document.getElementsByClassName('coding_problem_info_heading__G9ueL')[0].textContent;
+    
+    if(currentBookmarks.some((bookmark) => bookmark.id === uniqueID)) return;
+
+    const bookmarkObj = {
+        id: uniqueID,
+        name: problemName,
+        url: azProblemUrl
+    };
+
+    const updatedBookmarks = [...currentBookmarks, bookmarkObj];
+    const setBookMarksResponse = await setBookMarks(updatedBookmarks);
+    console.log('Updated the data correctly to:',setBookMarksResponse);
+}
+
+function extractUniqueID(url){
+    const start = url.indexOf('problems/') + 'problems/'.length;
+    const end = url.indexOf('?', start);
+    return (end === -1) ? url.slice(start) : url.slice(start, end);
+}
+
+function getCurrentBookMarks() {
+    return new Promise((resolve, reject) => {
+        chrome.storage.sync.get([AZ_PROBLEM_KEY], (results) => {
+            resolve(results[AZ_PROBLEM_KEY] || []); // results may be present altogether or absent
+        });
+    });
+}
+
+function setBookMarks(updatedBookmarks){
+    return new Promise((resolve, reject) =>{
+        chrome.storage.sync.set({AZ_PROBLEM_KEY: updatedBookmarks}, () => {
+            resolve(updatedBookmarks);
+        });
+    });
+}
+
 window.addEventListener("load", addBookmarkButton);
