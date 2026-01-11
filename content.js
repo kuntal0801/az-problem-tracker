@@ -1,7 +1,21 @@
 const bookmarkImageURL =  chrome.runtime.getURL("assets/bookmark.png");
 const AZ_PROBLEM_KEY = "AZ_PROBLEM_KEY";
 
+const observer = new MutationObserver(() => {
+    addBookmarkButton();
+});
+observer.observe(document.body, {childList: true, subtree: true}); 
+
+addBookmarkButton();
+
+function onProblemsPage(){
+    const azProblemUrlPath = window.location.pathname;
+    return azProblemUrlPath.includes('/problems/');
+}
+
 function addBookmarkButton(){
+    if(!onProblemsPage() || document.getElementById('add-bookmark-button')) return;
+
     const bookmarkButton = document.createElement("img");
     bookmarkButton.setAttribute('id', 'add-bookmark-button');
     bookmarkButton.src = bookmarkImageURL;
@@ -58,7 +72,7 @@ function extractUniqueID(url){
 function getCurrentBookMarks() {
     return new Promise((resolve, reject) => {
         chrome.storage.sync.get([AZ_PROBLEM_KEY], (results) => {
-            resolve(results[AZ_PROBLEM_KEY] || []); // results may be present altogether or absent
+            resolve(results[AZ_PROBLEM_KEY] || []);
         });
     });
 }
@@ -70,5 +84,3 @@ function setBookMarks(updatedBookmarks){
         });
     });
 }
-
-window.addEventListener("load", addBookmarkButton);
