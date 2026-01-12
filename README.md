@@ -2,15 +2,11 @@
 This is a basic Chrome Extension base template for starting new projects off of initialized with a MIT license.
 
 ## Features
-- ..
-- ..
-- ..
+- Add/Bookmark a problem to the pop-up.
+- Keep track of the problems on AlgoZenith.
 
 ## Author
-First Last
-- [Author Website]()
-- [Author Github]()
-- [Project Repository]()
+Kuntal Bhattacharjee
 
 ## Requirements
 ### Knowledge
@@ -33,9 +29,10 @@ First Last
 7. You are now ready to start working on the extension! Just make sure you reload after each change you make to see the changes take place.
 
 ### For End Users
-1. ...
-2. ...
-3. ...
+1. Click on the bookmark icon on a problems page on maang.in to bookmark the problem.
+2. Open the pop-up by clicking on the extension-icon:
+   a. You can click on the play button to redirect you to the corresponding problem.
+   b. You can click on the delete button to remove the problem from the pop-up.
 
 ## License
 Please refer to LICENSE file.
