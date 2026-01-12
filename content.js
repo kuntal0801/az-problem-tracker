@@ -60,7 +60,6 @@ async function addNewBookMarkHandler() {
 
     const updatedBookmarks = [...currentBookmarks, bookmarkObj];
     const setBookMarksResponse = await setBookMarks(updatedBookmarks);
-    console.log('Updated the data correctly to:',setBookMarksResponse);
 }
 
 function extractUniqueID(url){
