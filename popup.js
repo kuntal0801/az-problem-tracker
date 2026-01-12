@@ -68,13 +68,12 @@ function setControlsAttribute(src, handler, parentDiv){
 
 function onPlay(event) {
     const problemURL = event.target.parentNode.parentNode.getAttribute('url');
-    // window.location.assign(problemURL); --> this doenot work as popup is a separate html document and you are trying to set the url of it which is of no use
-    window.open(problemURL, "_blank"); // open problem url in a new tab (_blank)
+    window.open(problemURL, "_blank");
 }
 function onDelete(event) {
     const bookmarkItem = event.target.parentNode.parentNode;
     const idToRemove = bookmarkItem.getAttribute('bookmark-id');
-    bookmarkItem.remove(); // bookmark removed from DOM but the actual bookmark still persist in Chrome's sync storage
+    bookmarkItem.remove();
     
     deleteItemFromStorage(idToRemove);
 }
