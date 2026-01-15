@@ -37,8 +37,8 @@ function addBookmarkButton(){
     `;
     document.head.appendChild(style);
 
-    const problemDesc = document.getElementsByClassName('coding_runBtn__JDrPy')[0];
-    problemDesc.insertAdjacentElement("beforebegin", bookmarkButton);
+    const runOnSampleBtn = document.getElementsByClassName('coding_runBtn__JDrPy')[0];
+    runOnSampleBtn.insertAdjacentElement("beforebegin", bookmarkButton);
 
     bookmarkButton.addEventListener("click", addNewBookMarkHandler);
 }
