@@ -10,7 +10,7 @@ addBookmarkButton();
 
 function onProblemsPage(){
     const azProblemUrlPath = window.location.pathname;
-    return azProblemUrlPath.includes('/problems/');
+    return azProblemUrlPath.includes('/problems/') && azProblemUrlPath.length > '/problems/'.length;
 }
 
 function addBookmarkButton(){
